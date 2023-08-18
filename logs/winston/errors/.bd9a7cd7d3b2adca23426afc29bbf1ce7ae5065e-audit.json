@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\errors\\.bd9a7cd7d3b2adca23426afc29bbf1ce7ae5065e-audit.json",
+    "files": [
+        {
+            "date": 1692382152991,
+            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\errors\\phu-2023-19-08-00-error.log",
+            "hash": "e59b7c017a35ffd894f874311f5ff567af584d28c18b2e3f574f9b88dc6ad3ff"
+        }
+    ],
+    "hashType": "sha256"
+}

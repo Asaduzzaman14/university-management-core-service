@@ -12,7 +12,7 @@ datasource db {
 
 model AcademicSemester {
   id         String    @id @default(uuid())
-  year       String
+  year       Int
   title      String
   code       String
   startMonth String
@@ -60,14 +60,14 @@ model Student {
   middleName   String
   profileImage String
   email        String
-  contact      String
+  contactNo    String
   gender       String
   bloodGroup   String
   createdAt    DateTime @default(now())
   updatedAt    DateTime @default(now())
 
-  academicSemisterId AcademicSemester @relation(fields: [ademicSemister], references: [id])
-  ademicSemister     String
+  academicSemesterId AcademicSemester @relation(fields: [ademicSemester], references: [id])
+  ademicSemester     String
 
   academicDepartment   AcademicDepartment @relation(fields: [academicDepartmentId], references: [id])
   academicDepartmentId String
@@ -86,7 +86,7 @@ model Faculty {
   middleName   String
   profileImage String
   email        String
-  contact      String
+  contactNo    String
   gender       String
   bloodGroup   String
   designation  String
