@@ -6,9 +6,14 @@
     "auditLog": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\.141a0e448ed7b30abdf80605c47aa708cdf28255-audit.json",
     "files": [
         {
-            "date": 1692382152987,
-            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-19-08-00-success.log",
-            "hash": "f2cf61fc18027acf64181df53aaebf19024dbf575a95a4e7932953fe55b26658"
+            "date": 1692467520657,
+            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-19-08-23-success.log",
+            "hash": "9559b1cd1ed60c39593a88a69cb9e15f21564c7480ca628cfd06307890498ad5"
+        },
+        {
+            "date": 1692468025318,
+            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-20-08-00-success.log",
+            "hash": "74dbd29106a832c28848984527e487333348ddce65c0dccfaef4abd47cc4151a"
         }
     ],
     "hashType": "sha256"
