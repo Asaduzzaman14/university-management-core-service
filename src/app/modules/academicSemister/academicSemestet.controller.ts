@@ -4,6 +4,7 @@ import httpStatus from 'http-status';
 import catchAsync from '../../../shared/catchAsync';
 import pick from '../../../shared/pick';
 import sendResponse from '../../../shared/sendResponse';
+import { AcademicSemisterFilterAbleFeild } from './academicSemester.constance';
 import { AcademicSemesterService } from './academicSemester.service';
 
 const createSemester = catchAsync(async (req: Request, res: Response) => {
@@ -16,13 +17,9 @@ const createSemester = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+
 const getSemesters = catchAsync(async (req: Request, res: Response) => {
-  const filters = pick(req.query, [
-    'searchTerm',
-    'code',
-    'startMonth',
-    'endMonth',
-  ]);
+  const filters = pick(req.query, AcademicSemisterFilterAbleFeild);
   const options = pick(req.query, ['limit', 'page', 'sortOrder', 'sortBy']);
 
   const result = await AcademicSemesterService.getAllSemester(filters, options);
