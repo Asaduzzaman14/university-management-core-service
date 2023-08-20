@@ -11,6 +11,7 @@ route.post(
   AcademicSemesterController.createSemester
 );
 
+route.get('/:id', AcademicSemesterController.getSemestersById);
 route.get('/', AcademicSemesterController.getSemesters);
 
 export const AcademicSemesterRoutes = route;

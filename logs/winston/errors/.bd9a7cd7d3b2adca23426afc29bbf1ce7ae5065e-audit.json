@@ -14,6 +14,11 @@
             "date": 1692468025323,
             "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\errors\\phu-2023-20-08-00-error.log",
             "hash": "dd184eb0fe0a09004a5b5a672a031769742fe640d2b7193b1abcc86c0a94df19"
+        },
+        {
+            "date": 1692523842816,
+            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\errors\\phu-2023-20-08-15-error.log",
+            "hash": "861953549d4f08084407726a53cbc3fdb40d30c3403279f0354dcf73cd8bf9a2"
         }
     ],
     "hashType": "sha256"
