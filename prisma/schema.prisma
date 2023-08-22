@@ -55,7 +55,7 @@ model AcademicDepartment {
 model Student {
   id           String   @id @default(uuid())
   studentId    String
-  fastName     String
+  fistName     String
   lastName     String
   middleName   String
   profileImage String
@@ -66,8 +66,8 @@ model Student {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @default(now())
 
-  academicSemesterId AcademicSemester @relation(fields: [ademicSemester], references: [id])
-  ademicSemester     String
+  academicSemester   AcademicSemester @relation(fields: [academicSemesterId], references: [id])
+  academicSemesterId String
 
   academicDepartment   AcademicDepartment @relation(fields: [academicDepartmentId], references: [id])
   academicDepartmentId String
@@ -99,5 +99,31 @@ model Faculty {
   academicFacultyId String
   academicFaculty   AcademicFaculty @relation(fields: [academicFacultyId], references: [id])
 
-  @@map("facultys")
+  @@map("faculties")
 }
+
+model Building {
+  id    String @id @default(uuid())
+  title String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+  rooms     Room[]
+
+  @@map("buildings")
+}
+
+model Room {
+  id         String   @id @default(uuid())
+  roomNumber String
+  floor      String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now())
+
+  buiding    Building @relation(fields: [buildingId], references: [id])
+  buildingId String
+
+  @@map("rooms")
+}
+
+// npx prisma migrate dev --name changes

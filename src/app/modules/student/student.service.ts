@@ -11,13 +11,15 @@ import {
 import { IStudentFilterRequest } from './student.interface';
 
 const insertIntoDB = async (data: Student): Promise<Student> => {
+  console.log(data);
+
   const result = await prisma.student.create({
     data,
-    include: {
-      academicSemesterId: true,
-      academicDepartment: true,
-      academicfaculty: true,
-    },
+    // include: {
+    //   academicSemester: true,
+    //   academicDepartment: true,
+    //   academicfaculty: true,
+    // },
   });
   return result;
 };
@@ -67,7 +69,7 @@ const getAllFromDB = async (
 
   const result = await prisma.student.findMany({
     include: {
-      academicSemesterId: true,
+      academicSemester: true,
       academicDepartment: true,
       academicfaculty: true,
     },
@@ -101,7 +103,7 @@ const getByIdFromDB = async (id: string): Promise<Student | null> => {
       id,
     },
     include: {
-      academicSemesterId: true,
+      academicSemester: true,
       academicDepartment: true,
       academicfaculty: true,
     },
@@ -119,7 +121,7 @@ const updateIntoDB = async (
     },
     data: payload,
     include: {
-      academicSemesterId: true,
+      academicSemester: true,
       academicDepartment: true,
       academicfaculty: true,
     },
@@ -133,7 +135,7 @@ const deleteFromDB = async (id: string): Promise<Student> => {
       id,
     },
     include: {
-      academicSemesterId: true,
+      academicSemester: true,
       academicDepartment: true,
       academicfaculty: true,
     },
