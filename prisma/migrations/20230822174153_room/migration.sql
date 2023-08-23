@@ -1,16 +1,7 @@
-/*
-  Warnings:
-
-  - You are about to drop the `user` table. If the table is not empty, all the data it contains will be lost.
-
-*/
--- DropTable
-DROP TABLE "user";
-
 -- CreateTable
 CREATE TABLE "academic_semesters" (
     "id" TEXT NOT NULL,
-    "year" TEXT NOT NULL,
+    "year" INTEGER NOT NULL,
     "title" TEXT NOT NULL,
     "code" TEXT NOT NULL,
     "startMonth" TEXT NOT NULL,
@@ -46,17 +37,17 @@ CREATE TABLE "academic_department" (
 CREATE TABLE "students" (
     "id" TEXT NOT NULL,
     "studentId" TEXT NOT NULL,
-    "fastName" TEXT NOT NULL,
+    "fistName" TEXT NOT NULL,
     "lastName" TEXT NOT NULL,
     "middleName" TEXT NOT NULL,
     "profileImage" TEXT NOT NULL,
     "email" TEXT NOT NULL,
-    "contact" TEXT NOT NULL,
+    "contactNo" TEXT NOT NULL,
     "gender" TEXT NOT NULL,
     "bloodGroup" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "ademicSemister" TEXT NOT NULL,
+    "academicSemesterId" TEXT NOT NULL,
     "academicDepartmentId" TEXT NOT NULL,
     "academicFacultyId" TEXT NOT NULL,
 
@@ -64,7 +55,7 @@ CREATE TABLE "students" (
 );
 
 -- CreateTable
-CREATE TABLE "facultys" (
+CREATE TABLE "faculties" (
     "id" TEXT NOT NULL,
     "faucultyId" TEXT NOT NULL,
     "fastName" TEXT NOT NULL,
@@ -72,7 +63,7 @@ CREATE TABLE "facultys" (
     "middleName" TEXT NOT NULL,
     "profileImage" TEXT NOT NULL,
     "email" TEXT NOT NULL,
-    "contact" TEXT NOT NULL,
+    "contactNo" TEXT NOT NULL,
     "gender" TEXT NOT NULL,
     "bloodGroup" TEXT NOT NULL,
     "designation" TEXT NOT NULL,
@@ -81,14 +72,36 @@ CREATE TABLE "facultys" (
     "academicDepartmentId" TEXT NOT NULL,
     "academicFacultyId" TEXT NOT NULL,
 
-    CONSTRAINT "facultys_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "faculties_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "buildings" (
+    "id" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "buildings_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "rooms" (
+    "id" TEXT NOT NULL,
+    "roomNumber" TEXT NOT NULL,
+    "floor" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "buildingId" TEXT NOT NULL,
+
+    CONSTRAINT "rooms_pkey" PRIMARY KEY ("id")
 );
 
 -- AddForeignKey
 ALTER TABLE "academic_department" ADD CONSTRAINT "academic_department_academicFacultyId_fkey" FOREIGN KEY ("academicFacultyId") REFERENCES "academic_faculty"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "students" ADD CONSTRAINT "students_ademicSemister_fkey" FOREIGN KEY ("ademicSemister") REFERENCES "academic_semesters"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "students" ADD CONSTRAINT "students_academicSemesterId_fkey" FOREIGN KEY ("academicSemesterId") REFERENCES "academic_semesters"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "students" ADD CONSTRAINT "students_academicDepartmentId_fkey" FOREIGN KEY ("academicDepartmentId") REFERENCES "academic_department"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -97,7 +110,10 @@ ALTER TABLE "students" ADD CONSTRAINT "students_academicDepartmentId_fkey" FOREI
 ALTER TABLE "students" ADD CONSTRAINT "students_academicFacultyId_fkey" FOREIGN KEY ("academicFacultyId") REFERENCES "academic_faculty"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "facultys" ADD CONSTRAINT "facultys_academicDepartmentId_fkey" FOREIGN KEY ("academicDepartmentId") REFERENCES "academic_department"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "faculties" ADD CONSTRAINT "faculties_academicDepartmentId_fkey" FOREIGN KEY ("academicDepartmentId") REFERENCES "academic_department"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "facultys" ADD CONSTRAINT "facultys_academicFacultyId_fkey" FOREIGN KEY ("academicFacultyId") REFERENCES "academic_faculty"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "faculties" ADD CONSTRAINT "faculties_academicFacultyId_fkey" FOREIGN KEY ("academicFacultyId") REFERENCES "academic_faculty"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "rooms" ADD CONSTRAINT "rooms_buildingId_fkey" FOREIGN KEY ("buildingId") REFERENCES "buildings"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

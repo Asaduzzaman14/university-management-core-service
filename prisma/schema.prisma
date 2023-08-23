@@ -55,7 +55,7 @@ model AcademicDepartment {
 model Student {
   id           String   @id @default(uuid())
   studentId    String
-  fistName     String
+  firstName    String
   lastName     String
   middleName   String
   profileImage String
@@ -81,7 +81,7 @@ model Student {
 model Faculty {
   id           String   @id @default(uuid())
   faucultyId   String
-  fastName     String
+  firstName    String
   lastName     String
   middleName   String
   profileImage String
@@ -108,7 +108,8 @@ model Building {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
-  rooms     Room[]
+
+  rooms Room[]
 
   @@map("buildings")
 }
@@ -120,7 +121,7 @@ model Room {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @default(now())
 
-  buiding    Building @relation(fields: [buildingId], references: [id])
+  building   Building @relation(fields: [buildingId], references: [id])
   buildingId String
 
   @@map("rooms")

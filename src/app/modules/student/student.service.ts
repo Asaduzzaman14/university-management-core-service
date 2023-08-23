@@ -14,12 +14,12 @@ const insertIntoDB = async (data: Student): Promise<Student> => {
   console.log(data);
 
   const result = await prisma.student.create({
-    data,
-    // include: {
-    //   academicSemester: true,
-    //   academicDepartment: true,
-    //   academicfaculty: true,
-    // },
+    data: data,
+    include: {
+      academicSemester: true,
+      academicDepartment: true,
+      academicfaculty: true,
+    },
   });
   return result;
 };
