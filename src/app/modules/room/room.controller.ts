@@ -15,6 +15,57 @@ const createRooms = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+// const getAllRooms = catchAsync(async (req: Request, res: Response) => {
+//   const filters = pick(req.query, buildingFilterableFieldes);
+//   const options = pick(req.query, ['limit', 'page', 'sortOrder', 'sortBy']);
+
+//   const result = await BuildingService.getAllBuilding(filters, options);
+
+//   sendResponse(res, {
+//     statusCode: httpStatus.OK,
+//     success: true,
+//     message: 'Building Get successfully',
+//     meta: result.meta,
+//     data: result.data,
+//   });
+// });
+
+const getRoomsgById = catchAsync(async (req: Request, res: Response) => {
+  const result = await RoomServices.getRoomById(req.params.id);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Room get Successfully',
+    data: result,
+  });
+});
+
+const updateOneInDB = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await RoomServices.updateRoomById(id, req.body);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Room updated successfully',
+    data: result,
+  });
+});
+
+const deleteRoomByIdFromDB = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await RoomServices.deleteRoomById(id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Room delete successfully',
+    data: result,
+  });
+});
+
 export const RoomsController = {
   createRooms,
+  getRoomsgById,
+  updateOneInDB,
+  deleteRoomByIdFromDB,
 };
