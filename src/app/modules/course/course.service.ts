@@ -1,4 +1,4 @@
-import { Course, Prisma, courseFaculty } from '@prisma/client';
+import { Course, CourseFaculty, Prisma } from '@prisma/client';
 import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiError';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
@@ -264,10 +264,10 @@ const deleteCourse = async (id: string): Promise<Course> => {
   return result;
 };
 
-const assignFaculty = async (
+const assignFaculties = async (
   id: string,
   paylode: string[]
-): Promise<courseFaculty[]> => {
+): Promise<CourseFaculty[]> => {
   await prisma.courseFaculty.createMany({
     data: paylode.map(facultyId => ({
       courseId: id,
@@ -285,11 +285,36 @@ const assignFaculty = async (
   return assignFacultyData;
 };
 
+const removeFaculties = async (
+  id: string,
+  paylode: string[]
+): Promise<CourseFaculty[]> => {
+  await prisma.courseFaculty.deleteMany({
+    where: {
+      courseId: id,
+      facultyId: {
+        in: paylode,
+      },
+    },
+  });
+
+  const assignFacultyData = await prisma.courseFaculty.findMany({
+    where: {
+      courseId: id,
+    },
+    include: {
+      faculty: true,
+    },
+  });
+  return assignFacultyData;
+};
+
 export const CourseServices = {
   createCourse,
   getAllFromDB,
   getCourseById,
   updateCourseById,
   deleteCourse,
-  assignFaculty,
+  assignFaculties,
+  removeFaculties,
 };

@@ -8,7 +8,7 @@ const create = z.object({
     code: z.string({
       required_error: 'Code is required',
     }),
-    credits: z.number({
+    credits: z.string({
       required_error: 'Credits is required',
     }),
     preRequisiteCourses: z
