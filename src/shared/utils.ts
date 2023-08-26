@@ -7,12 +7,3 @@ export const asyncForEach = async (array: any[], callback: any) => {
     await callback(array[index], index, array);
   }
 };
-
-// const createPrerequisite =
-// await transactionClient.courseToPrerequisite.create({
-//   data: {
-//     courseId: result.id,
-//     preRequisiteId: preRequisiteCourses[index].courseId,
-//   },
-// });
-// console.log(createPrerequisite);

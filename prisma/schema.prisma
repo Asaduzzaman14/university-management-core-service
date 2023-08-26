@@ -98,6 +98,7 @@ model Faculty {
 
   academicFacultyId String
   academicFaculty   AcademicFaculty @relation(fields: [academicFacultyId], references: [id])
+  courses           courseFaculty[]
 
   @@map("faculties")
 }
@@ -137,6 +138,7 @@ model Course {
 
   preRequisite    CourseToPrerequisite[] @relation("CourseToPrerequisite")
   preRequisiteFor CourseToPrerequisite[] @relation("PrerequisiteToCourse")
+  facultys        courseFaculty[]
 
   @@map("courses")
 }
@@ -149,6 +151,17 @@ model CourseToPrerequisite {
   preRequisite Course @relation(fields: [preRequisiteId], references: [id], name: "PrerequisiteToCourse")
 
   @@id([courseId, preRequisiteId])
+}
+
+model courseFaculty {
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id])
+
+  facultyId String
+  faculty   Faculty @relation(fields: [facultyId], references: [id])
+
+  @@id([courseId, facultyId])
+  @@map("course_faculty")
 }
 
 // npx prisma migrate dev --name changes
