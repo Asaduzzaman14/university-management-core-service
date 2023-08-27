@@ -23,7 +23,13 @@ router.patch(
   CourseController.updateCourseById
 );
 
-router.post('/:id/assign-faculties', CourseController.assignfaculties);
+router.post(
+  '/:id/assign-faculties',
+  // auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  validateRequest(CourseValidation.assignOrRemoveFaculties),
+  CourseController.assignfaculties
+);
+
 router.delete('/:id/remove-faculties', CourseController.deletefaculties);
 
 export const CourseRoutes = router;
