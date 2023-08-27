@@ -117,42 +117,57 @@ const getAllRegisterSemester = async (
   };
 };
 
+const getregisterSemesterById = async (
+  id: string
+): Promise<SemesterRegistration | null> => {
+  const result = await prisma.semesterRegistration.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      academicSemester: true,
+    },
+  });
+  return result;
+};
+
 const updateData = async (
   id: string,
   payload: Partial<SemesterRegistration>
 ): Promise<SemesterRegistration> => {
   console.log(payload.status);
 
-  const isExist = prisma.semesterRegistration.findUnique({
+  const isExist: any = prisma.semesterRegistration.findUnique({
     where: {
       id,
     },
   });
+
   if (!isExist) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Data not found');
   }
 
-  // if (
-  //   payload.status &&
-  //   isExist.status === SemesterRegistrationStatus.UPCOMING &&
-  //   payload.status !== SemesterRegistrationStatus.ONGOING
-  // ) {
-  //   throw new ApiError(
-  //     httpStatus.BAD_REQUEST,
-  //     'Can only move from UPCOMING to ONGOING'
-  //   );
-  // }
+  if (
+    payload.status &&
+    isExist.status === SemesterRegistrationStatus.UPCOMING &&
+    payload.status !== SemesterRegistrationStatus.ONGOING
+  ) {
+    throw new ApiError(
+      httpStatus.BAD_REQUEST,
+      'Can only move from UPCOMING to ONGOING'
+    );
+  }
 
-  // if (
-  //   payload.status &&
-  //   isExist.status === SemesterRegistrationStatus.ONGOING &&
-  //   payload.status !== SemesterRegistrationStatus.ENDED
-  // ) {
-  //   throw new ApiError(
-  //     httpStatus.BAD_REQUEST,
-  //     ' Can only move from ONGOING to ENDED'
-  //   );
-  // }
+  if (
+    payload.status &&
+    isExist.status === SemesterRegistrationStatus.ONGOING &&
+    payload.status !== SemesterRegistrationStatus.ENDED
+  ) {
+    throw new ApiError(
+      httpStatus.BAD_REQUEST,
+      ' Can only move from ONGOING to ENDED'
+    );
+  }
 
   const result = await prisma.semesterRegistration.update({
     where: {
@@ -166,8 +181,22 @@ const updateData = async (
   return result;
 };
 
+const deleteByIdFromDB = async (id: string): Promise<SemesterRegistration> => {
+  const result = await prisma.semesterRegistration.delete({
+    where: {
+      id,
+    },
+    include: {
+      academicSemester: true,
+    },
+  });
+  return result;
+};
+
 export const SemesterRegistrationService = {
   insertInToDb,
   getAllRegisterSemester,
+  getregisterSemesterById,
   updateData,
+  deleteByIdFromDB,
 };
