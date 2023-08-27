@@ -5,4 +5,8 @@ const router = express.Router();
 
 router.post('/', SemesterRegistrationController.insertInToDb);
 
+router.get('/', SemesterRegistrationController.getAllRegistrationSemester);
+
+router.patch('/', SemesterRegistrationController.updateSemesterRegistration);
+
 export const SemesterRegiRoutes = router;
