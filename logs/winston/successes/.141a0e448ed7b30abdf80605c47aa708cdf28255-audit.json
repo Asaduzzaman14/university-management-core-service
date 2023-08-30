@@ -199,6 +199,21 @@
             "date": 1693335956450,
             "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-30-08-01-success.log",
             "hash": "a5a0e0164aed5d1f3421cd35dfa799b68af87c2cf48f7ac4fc31a1fba0ca2ed8"
+        },
+        {
+            "date": 1693408786237,
+            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-30-08-21-success.log",
+            "hash": "e63d3a182a23bf655540052fa70842216ce8a8b8614ea33d8c5cb2cf26f6bd51"
+        },
+        {
+            "date": 1693412043824,
+            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-30-08-22-success.log",
+            "hash": "e111f398d888891907f72d9fec70254bb72de62b34d7c4716f1d67ef8a561e65"
+        },
+        {
+            "date": 1693414831783,
+            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-30-08-23-success.log",
+            "hash": "f130196f1aed02fc90c4db9db1ae82cb828ca360f7276b4d829c3cee122b2a51"
         }
     ],
     "hashType": "sha256"

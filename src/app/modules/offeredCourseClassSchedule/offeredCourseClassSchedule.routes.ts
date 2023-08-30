@@ -1,11 +1,11 @@
 import express from 'express';
-import { OfferedCourseClassScheduleService } from './offeredCourseClassSchedule.service';
+import { OfferedCourseClassScheduleController } from './offeredCourseClassSchedule.controller';
 
 const router = express.Router();
 
 router.post(
   '/',
-  OfferedCourseClassScheduleService.createOfferedCourseClassSchedule
+  OfferedCourseClassScheduleController.createOfferedCourseClassSchedule
 );
 
 export const OfferedCourseClassScheduleRoutes = router;
