@@ -194,6 +194,11 @@
             "date": 1693333212390,
             "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-30-08-00-success.log",
             "hash": "824ff0eb30e7294ed0265f8c390957c4f5563e9a71a93576c1f88ac20dbb008b"
+        },
+        {
+            "date": 1693335956450,
+            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-30-08-01-success.log",
+            "hash": "a5a0e0164aed5d1f3421cd35dfa799b68af87c2cf48f7ac4fc31a1fba0ca2ed8"
         }
     ],
     "hashType": "sha256"
