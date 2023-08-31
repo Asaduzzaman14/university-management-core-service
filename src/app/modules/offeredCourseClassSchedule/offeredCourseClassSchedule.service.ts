@@ -1,59 +1,22 @@
 import { OfferedCourseClassSchedule, Prisma } from '@prisma/client';
-import httpStatus from 'http-status';
-import ApiError from '../../../errors/ApiError';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import prisma from '../../../shared/prisma';
-import { hasTimeConflict } from '../../../shared/utils';
 import { offeredCourseClassScheduleSearchableFields } from './offeredCourseClassSchedule.constants';
 import {
   IOfferedCourseClassSchedulFilterRequest,
   offeredCourseClassScheduleRelationalFields,
   offeredCourseClassScheduleRelationalFieldsMapper,
 } from './offeredCourseClassSchedule.interface';
+import { OfferedCourseClassScheduleUtils } from './offeredCourseClassSchedule.utils';
 
 const createOfferedCourseClassSchedule = async (
   data: OfferedCourseClassSchedule
 ): Promise<OfferedCourseClassSchedule> => {
-  const alreadyBookedRoomOnDay =
-    await prisma.offeredCourseClassSchedule.findMany({
-      where: {
-        dayOfWeek: data.dayOfWeek,
-        room: {
-          id: data.roomId,
-        },
-      },
-    });
-
-  console.log(alreadyBookedRoomOnDay);
-
-  const existingSlots = alreadyBookedRoomOnDay.map(schedule => ({
-    startTime: schedule.startTime,
-    endTime: schedule.endTime,
-    dayOfWeek: schedule.dayOfWeek,
-  }));
-
-  const newSlot = {
-    startTime: data.startTime,
-    endTime: data.endTime,
-    dayOfWeek: data.dayOfWeek,
-  };
-
-  if (hasTimeConflict(existingSlots, newSlot)) {
-    throw new ApiError(httpStatus.CONFLICT, 'Rooms is already busy!');
-  }
-
-  // for (const slot of existingSlots) {
-  //   const existingStart = new Date(`2020-01-01T${slot.startTime}:00`);
-  //   const existingEnd = new Date(`2020-01-01T${slot.endTime}:00`);
-  //   const newStart = new Date(`2020-01-01T${newSlot.startTime}:00`);
-  //   const newEnd = new Date(`2020-01-01T${newSlot.endTime}:00`);
-
-  //   if (newStart < existingEnd && newEnd > existingStart) {
-  //     throw new ApiError(httpStatus.CONFLICT, 'Rooms is already busy!');
-  //   }
-  // }
+  // utils fun.
+  await OfferedCourseClassScheduleUtils.checkRoomAvailable(data);
+  await OfferedCourseClassScheduleUtils.checkFacultyAvailable(data);
 
   const result = await prisma.offeredCourseClassSchedule.create({
     data,
@@ -71,13 +34,13 @@ const getAllFromDB = async (
   filters: IOfferedCourseClassSchedulFilterRequest,
   options: IPaginationOptions
 ): Promise<IGenericResponse<OfferedCourseClassSchedule[]>> => {
-  console.log(filters, options);
+  // console.log(filters, options);
 
   // paginations
   const { page, limit, skip } = paginationHelpers.calculatePagination(options);
   // search data
   const { searchTerm, ...filterData } = filters;
-  console.log(filterData);
+  // console.log(filterData);
 
   const andConditions = [];
 
@@ -139,7 +102,7 @@ const getAllFromDB = async (
   });
 
   const total = await prisma.offeredCourseClassSchedule.count();
-  console.log(result);
+  // console.log(result);
 
   return {
     meta: {
