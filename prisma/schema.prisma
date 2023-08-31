@@ -74,8 +74,9 @@ model Student {
   academicDepartment   AcademicDepartment @relation(fields: [academicDepartmentId], references: [id])
   academicDepartmentId String
 
-  academicfaculty   AcademicFaculty @relation(fields: [academicFacultyId], references: [id])
-  academicFacultyId String
+  academicfaculty              AcademicFaculty               @relation(fields: [academicFacultyId], references: [id])
+  academicFacultyId            String
+  studentSemesterRegistrations StudentSemesterRegistration[]
 
   @@map("students")
 }
@@ -179,11 +180,12 @@ model SemesterRegistration {
   createdAt DateTime                    @default(now())
   updatedAt DateTime                    @updatedAt
 
-  academicSemesterId          String
-  academicSemester            AcademicSemester             @relation(fields: [academicSemesterId], references: [id])
-  offeredCourses              OfferedCourse[]
-  offeredCourseSections       OfferedCourseSection[]
-  offeredCourseClassSchedules OfferedCourseClassSchedule[]
+  academicSemesterId           String
+  academicSemester             AcademicSemester              @relation(fields: [academicSemesterId], references: [id])
+  offeredCourses               OfferedCourse[]
+  offeredCourseSections        OfferedCourseSection[]
+  offeredCourseClassSchedules  OfferedCourseClassSchedule[]
+  studentSemesterRegistrations StudentSemesterRegistration[]
 
   @@map("semester_registrations")
 }
@@ -247,6 +249,23 @@ model OfferedCourseClassSchedule {
   faculty   Faculty @relation(fields: [facultyId], references: [id])
 
   @@map("offered_course_class_schedules")
+}
+
+model StudentSemesterRegistration {
+  id                String   @id @default(uuid())
+  isConfirmed       Boolean? @default(false)
+  totalCreditsTaken Int?     @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  studentId String
+  student   Student @relation(fields: [studentId], references: [id])
+
+  semesterRegistrationId String
+  semesterRegistration   SemesterRegistration @relation(fields: [semesterRegistrationId], references: [id])
+
+  @@map("student_semester_registrations")
 }
 
 enum SemesterRegistrationStatus {

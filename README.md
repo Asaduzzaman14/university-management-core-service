@@ -26,3 +26,9 @@
 }
 
 ```
+
+### ER Diagram
+
+- [ ER Diagram](https://i.ibb.co/B2JhHD3/module-38.png)
+
+- [ ER Diagram](https://i.ibb.co/VgG8RcZ/university-management-core-service-Page-1-drawio.png)
