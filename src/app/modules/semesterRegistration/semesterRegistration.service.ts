@@ -278,32 +278,60 @@ const enroleIntCourse = async (
       studentId: authuserId,
     },
   });
-  // console.log(student);
 
   const semesterRegistraion = await prisma.semesterRegistration.findFirst({
     where: {
       status: SemesterRegistrationStatus.ONGOING,
     },
   });
-  // console.log(semesterRegistraion);
+
+  const offeredCourse = await prisma.offeredCourse.findFirst({
+    where: { id: payload.offeredCourseId },
+  });
+
+  const offeredCourseSection = await prisma.offeredCourseSection.findFirst({
+    where: { id: payload.offeredCourseSectionId },
+  });
+
+  if (!offeredCourseSection) {
+    throw new ApiError(
+      httpStatus.NOT_FOUND,
+      'offered Course Section not Found'
+    );
+  }
+  if (!offeredCourse) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Offered Course not Found');
+  }
+
   if (!student) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Student not Found');
+    throw new ApiError(httpStatus.NOT_FOUND, 'Student not Found');
   }
 
   if (!semesterRegistraion) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'SemesterRegistraion not Found');
+    throw new ApiError(httpStatus.NOT_FOUND, 'SemesterRegistraion not Found');
   }
 
-  const enroleCourse = await prisma.studentSemesterRegisterCourse.create({
-    data: {
-      studentId: student?.id,
-      semesterRegistrationId: semesterRegistraion?.id,
-      offeredCourseId: payload.offeredCourseId,
-      offeredCourseSectionId: payload.offeredCourseSectionId,
-    },
-  });
+  await prisma.$transaction(async transactionClient => {
+    await transactionClient.studentSemesterRegistrationCourse.create({
+      data: {
+        studentId: student?.id,
+        semesterRegistrationId: semesterRegistraion?.id,
+        offeredCourseId: payload.offeredCourseId,
+        offeredCourseSectionId: payload.offeredCourseSectionId,
+      },
+    });
 
-  return enroleCourse;
+    await transactionClient.offeredCourseSection.update({
+      where: {
+        id: payload.offeredCourseSectionId,
+      },
+      data: {
+        currentlyEnrolledStudent: {
+          increment: 1,
+        },
+      },
+    });
+  });
 };
 
 export const SemesterRegistrationService = {
