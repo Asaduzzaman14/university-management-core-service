@@ -287,6 +287,9 @@ const enroleIntCourse = async (
 
   const offeredCourse = await prisma.offeredCourse.findFirst({
     where: { id: payload.offeredCourseId },
+    include: {
+      course: true,
+    },
   });
 
   const offeredCourseSection = await prisma.offeredCourseSection.findFirst({
@@ -311,6 +314,15 @@ const enroleIntCourse = async (
     throw new ApiError(httpStatus.NOT_FOUND, 'SemesterRegistraion not Found');
   }
 
+  if (
+    offeredCourseSection.maxCapacity &&
+    offeredCourseSection?.currentlyEnrolledStudent &&
+    offeredCourseSection?.currentlyEnrolledStudent >=
+      offeredCourseSection.maxCapacity
+  ) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Student capacity is full');
+  }
+
   await prisma.$transaction(async transactionClient => {
     await transactionClient.studentSemesterRegistrationCourse.create({
       data: {
@@ -331,7 +343,27 @@ const enroleIntCourse = async (
         },
       },
     });
+
+    await transactionClient.studentSemesterRegistration.updateMany({
+      where: {
+        student: {
+          id: student.id,
+        },
+        semesterRegistration: {
+          id: semesterRegistraion.id,
+        },
+      },
+      data: {
+        totalCreditsTaken: {
+          increment: Number(offeredCourse.course.credits),
+        },
+      },
+    });
   });
+
+  return {
+    messsage: 'Succesfully enrole into course',
+  };
 };
 
 export const SemesterRegistrationService = {
