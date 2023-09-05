@@ -33,12 +33,14 @@ router.post(
 
 router.post(
   '/enrole-into-course',
+  validateRequest(SemesterRegistrationValidation.enroleOrWithDrowCourse),
   auth(ENUM_USER_ROLE.STUDENT),
   SemesterRegistrationController.inroleInToCourse
 );
 
 router.post(
   '/withdrow-from-course',
+  validateRequest(SemesterRegistrationValidation.enroleOrWithDrowCourse),
   auth(ENUM_USER_ROLE.STUDENT),
   SemesterRegistrationController.inroleInToCourse
 );
