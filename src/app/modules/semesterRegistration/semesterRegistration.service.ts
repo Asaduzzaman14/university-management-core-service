@@ -366,12 +366,95 @@ const enroleIntCourse = async (
   };
 };
 
+const withdrowFromCourse = async (
+  authuserId: string,
+  payload: IInroleCoursePayload
+) => {
+  console.log(authuserId, payload);
+
+  const student = await prisma.student.findFirst({
+    where: {
+      studentId: authuserId,
+    },
+  });
+
+  const semesterRegistraion = await prisma.semesterRegistration.findFirst({
+    where: {
+      status: SemesterRegistrationStatus.ONGOING,
+    },
+  });
+
+  const offeredCourse = await prisma.offeredCourse.findFirst({
+    where: { id: payload.offeredCourseId },
+    include: {
+      course: true,
+    },
+  });
+
+  if (!offeredCourse) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Offered Course not Found');
+  }
+
+  if (!student) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Student not Found');
+  }
+
+  if (!semesterRegistraion) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'SemesterRegistraion not Found');
+  }
+
+  await prisma.$transaction(async transactionClient => {
+    await transactionClient.studentSemesterRegistrationCourse.delete({
+      where: {
+        semesterRegistrationId_studentId_offeredCourseId: {
+          semesterRegistrationId: semesterRegistraion?.id,
+          studentId: student?.id,
+          offeredCourseId: payload.offeredCourseId,
+        },
+      },
+    });
+
+    await transactionClient.offeredCourseSection.update({
+      where: {
+        id: payload.offeredCourseSectionId,
+      },
+      data: {
+        currentlyEnrolledStudent: {
+          increment: 1,
+        },
+      },
+    });
+
+    await transactionClient.studentSemesterRegistration.updateMany({
+      where: {
+        student: {
+          id: student.id,
+        },
+        semesterRegistration: {
+          id: semesterRegistraion.id,
+        },
+      },
+      data: {
+        totalCreditsTaken: {
+          decrement: Number(offeredCourse.course.credits),
+        },
+      },
+    });
+  });
+
+  return {
+    messsage: 'Succesfully withdrow from course',
+  };
+};
+
 export const SemesterRegistrationService = {
   insertInToDb,
   getAllRegisterSemester,
   getregisterSemesterById,
   updateData,
   deleteByIdFromDB,
+
   startMyRegistration,
   enroleIntCourse,
+  withdrowFromCourse,
 };

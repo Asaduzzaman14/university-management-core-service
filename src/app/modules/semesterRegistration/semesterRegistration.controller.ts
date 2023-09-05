@@ -107,6 +107,22 @@ const inroleInToCourse = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const withDrowFromCourse = catchAsync(async (req: Request, res: Response) => {
+  const user = (req as any).user;
+  console.log(user);
+
+  const result = await SemesterRegistrationService.withdrowFromCourse(
+    user.userId,
+    req.body
+  );
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Successfully withdrow From Course',
+    data: result,
+  });
+});
+
 export const SemesterRegistrationController = {
   insertInToDb,
   getAllRegistrationSemester,
@@ -116,4 +132,5 @@ export const SemesterRegistrationController = {
 
   startMyRegistration,
   inroleInToCourse,
+  withDrowFromCourse,
 };

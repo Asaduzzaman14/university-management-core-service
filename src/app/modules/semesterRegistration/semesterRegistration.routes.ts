@@ -37,4 +37,10 @@ router.post(
   SemesterRegistrationController.inroleInToCourse
 );
 
+router.post(
+  '/withdrow-from-course',
+  auth(ENUM_USER_ROLE.STUDENT),
+  SemesterRegistrationController.inroleInToCourse
+);
+
 export const SemesterRegiRoutes = router;
