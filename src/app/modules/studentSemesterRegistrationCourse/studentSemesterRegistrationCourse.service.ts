@@ -153,7 +153,7 @@ const withdrowFromCourse = async (
       },
       data: {
         currentlyEnrolledStudent: {
-          increment: 1,
+          decrement: 1,
         },
       },
     });

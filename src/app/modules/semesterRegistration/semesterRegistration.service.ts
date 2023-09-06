@@ -290,6 +290,69 @@ const withdrowFromCourse = async (
   );
 };
 
+const confirmRegistration = async (
+  authUserId: string
+): Promise<{
+  message: string;
+}> => {
+  const semesterRegstration = await prisma.semesterRegistration.findFirst({
+    where: {
+      status: SemesterRegistrationStatus.ONGOING,
+    },
+  });
+
+  const studentSemesterRegistration =
+    await prisma.studentSemesterRegistration.findFirst({
+      where: {
+        semesterRegistration: {
+          id: semesterRegstration?.id,
+        },
+        student: {
+          studentId: authUserId,
+        },
+      },
+    });
+
+  if (!studentSemesterRegistration) {
+    throw new ApiError(
+      httpStatus.BAD_REQUEST,
+      'You are not authorized for this semester'
+    );
+  }
+
+  if (studentSemesterRegistration.totalCreditsTaken == 0) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'you are not enrole any course');
+  }
+
+  if (
+    studentSemesterRegistration.totalCreditsTaken &&
+    semesterRegstration?.minCredit &&
+    semesterRegstration.maxCredit &&
+    (studentSemesterRegistration.totalCreditsTaken <
+      semesterRegstration.minCredit ||
+      studentSemesterRegistration.totalCreditsTaken >
+        semesterRegstration.maxCredit)
+  ) {
+    throw new ApiError(
+      httpStatus.BAD_REQUEST,
+      `You can take only ${semesterRegstration.minCredit} to ${semesterRegstration.maxCredit} creadit`
+    );
+  }
+
+  await prisma.studentSemesterRegistration.update({
+    where: {
+      id: studentSemesterRegistration.id,
+    },
+    data: {
+      isConfirmed: true,
+    },
+  });
+
+  return {
+    message: 'Your registration is conformd',
+  };
+};
+
 export const SemesterRegistrationService = {
   insertInToDb,
   getAllRegisterSemester,
@@ -300,4 +363,5 @@ export const SemesterRegistrationService = {
   startMyRegistration,
   enroleIntCourse,
   withdrowFromCourse,
+  confirmRegistration,
 };

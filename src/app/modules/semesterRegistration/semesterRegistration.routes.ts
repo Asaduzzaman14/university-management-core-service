@@ -42,7 +42,13 @@ router.post(
   '/withdrow-from-course',
   validateRequest(SemesterRegistrationValidation.enroleOrWithDrowCourse),
   auth(ENUM_USER_ROLE.STUDENT),
-  SemesterRegistrationController.inroleInToCourse
+  SemesterRegistrationController.withDrowFromCourse
+);
+
+router.post(
+  '/confirm-registration',
+  auth(ENUM_USER_ROLE.STUDENT),
+  SemesterRegistrationController.confirmRegistration
 );
 
 export const SemesterRegiRoutes = router;

@@ -123,6 +123,21 @@ const withDrowFromCourse = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const confirmRegistration = catchAsync(async (req: Request, res: Response) => {
+  const user = (req as any).user;
+  console.log(user);
+
+  const result = await SemesterRegistrationService.confirmRegistration(
+    user.userId
+  );
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Confirm Registration success',
+    data: result,
+  });
+});
+
 export const SemesterRegistrationController = {
   insertInToDb,
   getAllRegistrationSemester,
@@ -133,4 +148,5 @@ export const SemesterRegistrationController = {
   startMyRegistration,
   inroleInToCourse,
   withDrowFromCourse,
+  confirmRegistration,
 };
