@@ -138,6 +138,21 @@ const confirmRegistration = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getMyRegistration = catchAsync(async (req: Request, res: Response) => {
+  const user = (req as any).user;
+  console.log(user);
+
+  const result = await SemesterRegistrationService.getMyRegistration(
+    user.userId
+  );
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'My registration data fatched',
+    data: result,
+  });
+});
+
 export const SemesterRegistrationController = {
   insertInToDb,
   getAllRegistrationSemester,
@@ -149,4 +164,5 @@ export const SemesterRegistrationController = {
   inroleInToCourse,
   withDrowFromCourse,
   confirmRegistration,
+  getMyRegistration,
 };

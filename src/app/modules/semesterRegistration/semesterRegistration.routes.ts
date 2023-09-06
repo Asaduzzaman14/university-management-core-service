@@ -7,7 +7,14 @@ import { SemesterRegistrationController } from './semesterRegistration.controlle
 
 const router = express.Router();
 
+router.get(
+  '/get-my-registration',
+  auth(ENUM_USER_ROLE.STUDENT),
+  SemesterRegistrationController.getMyRegistration
+);
+
 router.get('/:id', SemesterRegistrationController.getregisterSemesterById);
+
 router.get('/', SemesterRegistrationController.getAllRegistrationSemester);
 
 router.post(
