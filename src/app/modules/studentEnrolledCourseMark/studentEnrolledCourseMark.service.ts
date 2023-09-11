@@ -141,7 +141,69 @@ const studentMarks = async (payload: any) => {
 };
 
 const updateFinalMarks = async (payload: any) => {
-  console.log(payload);
+  const { studentId, academicSemesterId, courseId } = payload;
+
+  const StudentEnroledCourse = prisma.studentEnrolledCourse.findFirst({
+    where: {
+      student: {
+        id: studentId,
+      },
+      academicSemester: {
+        id: academicSemesterId,
+      },
+      course: {
+        id: courseId,
+      },
+    },
+  });
+  if (!StudentEnroledCourse) {
+    throw new ApiError(
+      httpStatus.NOT_FOUND,
+      'Student Enroled Course Not Found'
+    );
+  }
+
+  const studentEnroleCourseMark =
+    await prisma.studentEnrolledCourseMark.findMany({
+      where: {
+        student: {
+          id: studentId,
+        },
+        academicSemester: {
+          id: academicSemesterId,
+        },
+        studentEnrolledCourse: {
+          course: {
+            id: courseId,
+          },
+        },
+      },
+    });
+
+  if (!studentEnroleCourseMark.length) {
+    throw new ApiError(
+      httpStatus.NOT_FOUND,
+      'Student enroled course mark not found'
+    );
+  }
+
+  // upadated mark
+
+  const midTermMark =
+    studentEnroleCourseMark.find(item => item.examType === ExamType.MIDTERM)
+      ?.marks || 0;
+  const finalTermMark =
+    studentEnroleCourseMark.find(item => item.examType === ExamType.FINAL)
+      ?.marks || 0;
+  // console.log(midTermMark);
+  // console.log(finalTermMark);
+
+  const totalFinalMarks =
+    Math.ceil(midTermMark * 0.4) + Math.ceil(finalTermMark * 0.6);
+
+  const gread = StudentEnroleCourseMarkUtils.getGreadMarks(totalFinalMarks);
+
+  console.log(gread);
 };
 
 export const StudentEnrolledCourseMarkService = {
