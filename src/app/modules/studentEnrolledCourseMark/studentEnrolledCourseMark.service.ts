@@ -1,4 +1,8 @@
-import { ExamType, PrismaClient } from '@prisma/client';
+import {
+  ExamType,
+  PrismaClient,
+  StudentEnrolledCourseStatus,
+} from '@prisma/client';
 import {
   DefaultArgs,
   PrismaClientOptions,
@@ -201,9 +205,27 @@ const updateFinalMarks = async (payload: any) => {
   const totalFinalMarks =
     Math.ceil(midTermMark * 0.4) + Math.ceil(finalTermMark * 0.6);
 
-  const gread = StudentEnroleCourseMarkUtils.getGreadMarks(totalFinalMarks);
+  const result = StudentEnroleCourseMarkUtils.getGreadMarks(totalFinalMarks);
 
-  console.log(gread);
+  await prisma.studentEnrolledCourse.updateMany({
+    where: {
+      student: {
+        id: studentId,
+      },
+      academicSemester: {
+        id: academicSemesterId,
+      },
+      course: {
+        id: courseId,
+      },
+    },
+    data: {
+      grade: result.grade,
+      point: result.point,
+      totalMarks: totalFinalMarks,
+      status: StudentEnrolledCourseStatus.COMPLETED,
+    },
+  });
 };
 
 export const StudentEnrolledCourseMarkService = {
