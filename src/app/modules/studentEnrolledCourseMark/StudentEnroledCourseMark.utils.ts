@@ -1,3 +1,5 @@
+import { Course, StudentEnrolledCourse } from '@prisma/client';
+
 const getGreadMarks = (marks: number) => {
   let result = {
     grade: '',
@@ -38,6 +40,33 @@ const getGreadMarks = (marks: number) => {
   return result;
 };
 
+const calcCGPAandGread = (
+  payload: (StudentEnrolledCourse & { course: Course })[]
+) => {
+  if (payload.length == 0) {
+    return {
+      totalCompletedCreadit: 0,
+      cgpa: 0,
+    };
+  }
+
+  let totalCredit = 0;
+  let totalCGPA = 0;
+
+  for (const gread of payload) {
+    totalCredit += gread.point || 0;
+    totalCGPA += Number(gread.course.credits) || 0;
+  }
+
+  const avgCGPA = Number((totalCGPA / payload.length).toFixed(2));
+
+  return {
+    totalCompletedCreadit: totalCredit,
+    cgpa: avgCGPA,
+  };
+};
+
 export const StudentEnroleCourseMarkUtils = {
   getGreadMarks,
+  calcCGPAandGread,
 };

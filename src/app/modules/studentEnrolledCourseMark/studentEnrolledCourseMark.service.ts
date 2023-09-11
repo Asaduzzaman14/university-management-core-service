@@ -10,7 +10,7 @@ import {
 import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiError';
 import prisma from '../../../shared/prisma';
-import { StudentEnroleCourseMarkUtils } from './StudentEnrolledCourseMark.utils';
+import { StudentEnroleCourseMarkUtils } from './StudentEnroledCourseMark.utils';
 
 const createStudentEnrolledCourseDefaultMark = async (
   prismaClient: Omit<
@@ -226,6 +226,56 @@ const updateFinalMarks = async (payload: any) => {
       status: StudentEnrolledCourseStatus.COMPLETED,
     },
   });
+
+  const greads = await prisma.studentEnrolledCourse.findMany({
+    where: {
+      student: {
+        id: studentId,
+      },
+      status: StudentEnrolledCourseStatus.COMPLETED,
+    },
+    include: {
+      course: true,
+    },
+  });
+
+  const academicResult = await StudentEnroleCourseMarkUtils.calcCGPAandGread(
+    greads
+  );
+
+  const studentAcademicInfo = await prisma.studentAcademicInfo.findFirst({
+    where: {
+      student: {
+        id: studentId,
+      },
+    },
+  });
+
+  if (studentAcademicInfo) {
+    await prisma.studentAcademicInfo.update({
+      where: {
+        id: studentAcademicInfo.id,
+      },
+      data: {
+        totalCompletedCreadit: academicResult.totalCompletedCreadit,
+        cgpa: academicResult.cgpa,
+      },
+    });
+  } else {
+    await prisma.studentAcademicInfo.create({
+      data: {
+        student: {
+          connect: {
+            id: studentId,
+          },
+        },
+        totalCompletedCreadit: academicResult.totalCompletedCreadit,
+        cgpa: academicResult.cgpa,
+      },
+    });
+  }
+
+  return greads;
 };
 
 export const StudentEnrolledCourseMarkService = {
