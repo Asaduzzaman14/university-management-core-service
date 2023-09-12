@@ -6,11 +6,6 @@
     "auditLog": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\errors\\.bd9a7cd7d3b2adca23426afc29bbf1ce7ae5065e-audit.json",
     "files": [
         {
-            "date": 1693285270593,
-            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\errors\\phu-2023-29-08-11-error.log",
-            "hash": "9479fb064460efeb620972ac83f304a1c121671d463a88339aafa96ba8b5f2ba"
-        },
-        {
             "date": 1693322611052,
             "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\errors\\phu-2023-29-08-21-error.log",
             "hash": "5dc1ecdd493401796110cc6206599928fde45237e02a7f46e111a440a89ae10e"
@@ -224,6 +219,11 @@
             "date": 1694491535310,
             "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\errors\\phu-2023-12-09-10-error.log",
             "hash": "18fcba8dc8bbed6c13f2138bec1da73677c4df00b6e6386f83f833bf5e941698"
+        },
+        {
+            "date": 1694509827334,
+            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\errors\\phu-2023-12-09-15-error.log",
+            "hash": "2635a3e1b95ee0beeb7dbc0fcbf64de18c23927bef52ba3ab300db169fc33586"
         }
     ],
     "hashType": "sha256"

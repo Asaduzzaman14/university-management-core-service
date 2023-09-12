@@ -4,8 +4,14 @@ import ApiError from '../../../errors/ApiError';
 import prisma from '../../../shared/prisma';
 import { asyncForEach } from '../../../shared/utils';
 import { OfferedCourseClassScheduleUtils } from './../offeredCourseClassSchedule/offeredCourseClassSchedule.utils';
+import {
+  IClassSchedule,
+  IOfferedCourseSectionCreate,
+} from './offeredCourseSection.interface';
 
-const insertInToDB = async (payload: any): Promise<OfferedCourseSection> => {
+const insertInToDB = async (
+  payload: IOfferedCourseSectionCreate
+): Promise<OfferedCourseSection | null> => {
   const { classSchedule, ...data } = payload;
 
   const isExistOfferedCourse = await prisma.offeredCourse.findFirst({
@@ -19,20 +25,40 @@ const insertInToDB = async (payload: any): Promise<OfferedCourseSection> => {
   }
   console.log(data, 'this is data');
 
-  data.semesterRegistrationId = isExistOfferedCourse.semesterRegistrationId;
-
   await asyncForEach(classSchedule, async (schedule: any) => {
     await OfferedCourseClassScheduleUtils.checkRoomAvailable(schedule);
     await OfferedCourseClassScheduleUtils.checkFacultyAvailable(schedule);
   });
 
-  const createSection = prisma.$transaction(async trancationClient => {
+  const offeredCourseSectionData = await prisma.offeredCourseSection.findFirst({
+    where: {
+      offeredCourse: {
+        id: data.offeredCourseId,
+      },
+      title: data.title,
+    },
+  });
+
+  if (offeredCourseSectionData) {
+    throw new ApiError(
+      httpStatus.BAD_REQUEST,
+      'Offered Course Section already exist'
+    );
+  }
+
+  const createSection = await prisma.$transaction(async trancationClient => {
+    //
     const createOfferedCourseSection =
       await trancationClient.offeredCourseSection.create({
-        data,
+        data: {
+          title: data.title,
+          maxCapacity: data.maxCapacity,
+          offeredCourseId: data.offeredCourseId,
+          semesterRegistrationId: isExistOfferedCourse.semesterRegistrationId,
+        },
       });
 
-    const scheduleData = classSchedule.map((schedule: any) => ({
+    const scheduleData = classSchedule.map((schedule: IClassSchedule) => ({
       startTime: schedule.startTime,
       endTime: schedule.endTime,
       dayOfWeek: schedule.dayOfWeek,
@@ -42,15 +68,37 @@ const insertInToDB = async (payload: any): Promise<OfferedCourseSection> => {
       semesterRegistrationId: isExistOfferedCourse.semesterRegistrationId,
     }));
 
-    const createSchedule =
-      await trancationClient.offeredCourseClassSchedule.createMany({
-        data: scheduleData,
-      });
+    await trancationClient.offeredCourseClassSchedule.createMany({
+      data: scheduleData,
+    });
 
-    return createSchedule;
-
-    // console.log(scheduleData);
+    return createOfferedCourseSection;
   });
+
+  const result = await prisma.offeredCourseSection.findFirst({
+    where: {
+      id: createSection.id,
+    },
+    include: {
+      offeredCourse: {
+        include: {
+          course: true,
+        },
+      },
+      offeredCourseClassSchedules: {
+        include: {
+          room: {
+            include: {
+              building: true,
+            },
+          },
+          faculty: true,
+        },
+      },
+    },
+  });
+
+  return result;
 };
 
 export const OfferedCourseSectionServices = {
