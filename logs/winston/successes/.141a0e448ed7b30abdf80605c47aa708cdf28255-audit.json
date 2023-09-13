@@ -6,21 +6,6 @@
     "auditLog": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\.141a0e448ed7b30abdf80605c47aa708cdf28255-audit.json",
     "files": [
         {
-            "date": 1693408786237,
-            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-30-08-21-success.log",
-            "hash": "e63d3a182a23bf655540052fa70842216ce8a8b8614ea33d8c5cb2cf26f6bd51"
-        },
-        {
-            "date": 1693412043824,
-            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-30-08-22-success.log",
-            "hash": "e111f398d888891907f72d9fec70254bb72de62b34d7c4716f1d67ef8a561e65"
-        },
-        {
-            "date": 1693414831783,
-            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-30-08-23-success.log",
-            "hash": "f130196f1aed02fc90c4db9db1ae82cb828ca360f7276b4d829c3cee122b2a51"
-        },
-        {
             "date": 1693465278995,
             "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-31-08-13-success.log",
             "hash": "83fa9d746848443e4c8414e0466c02c2ab917490616619eac3eae262bd3259af"
@@ -214,6 +199,21 @@
             "date": 1694586113958,
             "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-13-09-12-success.log",
             "hash": "375c13e58e05ac0ccf7b2df3759ac8fb0ea0a628ba31f3697a6f9022ffa75e58"
+        },
+        {
+            "date": 1694588401740,
+            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-13-09-13-success.log",
+            "hash": "8fb826f534e2ffb566d9929ef345a66176ca5af9efd1dfcc987d6cf0febe2f79"
+        },
+        {
+            "date": 1694592016203,
+            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-13-09-14-success.log",
+            "hash": "5f1a6b7f69eec9264a843c78a027af6d82bebbdffd34ff63762174c049c7b2de"
+        },
+        {
+            "date": 1694625860316,
+            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-13-09-23-success.log",
+            "hash": "7df5dc9fc69f3fb2b1f95d9b239373fb92cb7484d858fe0fe3c4ed3977354e0d"
         }
     ],
     "hashType": "sha256"
