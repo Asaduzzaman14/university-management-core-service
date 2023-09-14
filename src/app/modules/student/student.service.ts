@@ -174,6 +174,74 @@ const myCourses = async (
   return result;
 };
 
+const getMyCourseSchedule = async (
+  authUserId: string,
+  filter: {
+    courseId?: string | undefined;
+    academicSemesterId?: string | undefined;
+  }
+) => {
+  console.log(authUserId, filter);
+
+  if (!filter.academicSemesterId) {
+    const currentSemester = await prisma.academicSemester.findFirst({
+      where: {
+        isCurrent: true,
+      },
+    });
+    filter.academicSemesterId = currentSemester?.id;
+  }
+
+  const studentEnroledCourse = await myCourses(authUserId, filter);
+
+  const studentEnroleCoursesIds = studentEnroledCourse.map(
+    item => item.courseId
+  );
+
+  const result = await prisma.studentSemesterRegistrationCourse.findMany({
+    where: {
+      student: {
+        studentId: authUserId,
+      },
+      semesterRegistration: {
+        academicSemester: {
+          id: filter.academicSemesterId,
+        },
+      },
+      offeredCourse: {
+        course: {
+          id: {
+            in: studentEnroleCoursesIds,
+          },
+        },
+      },
+    },
+    include: {
+      offeredCourse: {
+        include: {
+          course: true,
+        },
+      },
+      offeredCourseSection: {
+        include: {
+          offeredCourseClassSchedules: {
+            include: {
+              room: {
+                include: {
+                  building: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+
+  return result;
+  console.log(result);
+};
+
 export const StudentService = {
   insertIntoDB,
   getAllFromDB,
@@ -181,4 +249,6 @@ export const StudentService = {
   updateIntoDB,
   deleteFromDB,
   myCourses,
+
+  getMyCourseSchedule,
 };
