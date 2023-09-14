@@ -1,4 +1,4 @@
-import { Prisma, Student } from '@prisma/client';
+import { Prisma, Student, StudentEnrolledCourseStatus } from '@prisma/client';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
@@ -239,7 +239,40 @@ const getMyCourseSchedule = async (
   });
 
   return result;
-  console.log(result);
+};
+
+const myAcademicInfo = async (authuserId: string): Promise<any> => {
+  console.log(authuserId);
+
+  const myAcademicInfo = await prisma.studentAcademicInfo.findFirst({
+    where: {
+      student: {
+        studentId: authuserId,
+      },
+    },
+    include: {
+      student: true,
+    },
+  });
+
+  const enroleCourse = await prisma.studentEnrolledCourse.findMany({
+    where: {
+      student: {
+        studentId: authuserId,
+      },
+      status: StudentEnrolledCourseStatus.COMPLETED,
+    },
+    include: {
+      course: true,
+      academicSemester: true,
+    },
+    orderBy: {
+      createdAt: 'asc',
+    },
+  });
+
+  console.log(myAcademicInfo);
+  console.log(enroleCourse);
 };
 
 export const StudentService = {
@@ -251,4 +284,5 @@ export const StudentService = {
   myCourses,
 
   getMyCourseSchedule,
+  myAcademicInfo,
 };
