@@ -9,6 +9,7 @@ import {
   studentSearchableFields,
 } from './student.constance';
 import { IStudentFilterRequest } from './student.interface';
+import { studentUtils } from './student.utils';
 
 const insertIntoDB = async (data: Student): Promise<Student> => {
   console.log(data);
@@ -244,7 +245,7 @@ const getMyCourseSchedule = async (
 const myAcademicInfo = async (authuserId: string): Promise<any> => {
   console.log(authuserId);
 
-  const myAcademicInfo = await prisma.studentAcademicInfo.findFirst({
+  const academicInfo = await prisma.studentAcademicInfo.findFirst({
     where: {
       student: {
         studentId: authuserId,
@@ -271,8 +272,16 @@ const myAcademicInfo = async (authuserId: string): Promise<any> => {
     },
   });
 
-  console.log(myAcademicInfo);
-  console.log(enroleCourse);
+  // console.log(myAcademicInfo);
+  // console.log(enroleCourse);
+
+  const groupAcademicSemesterData =
+    studentUtils.groupAcademicSemester(enroleCourse);
+
+  return {
+    academicInfo,
+    enroleCourse,
+  };
 };
 
 export const StudentService = {
