@@ -14,9 +14,9 @@ router.post(
   AcademicSemesterController.createSemester
 );
 
-router.get('/:id', AcademicSemesterController.getSemestersById);
-
 router.get('/', AcademicSemesterController.getSemesters);
+
+router.get('/:id', AcademicSemesterController.getSemestersById);
 
 router.patch(
   '/:id',

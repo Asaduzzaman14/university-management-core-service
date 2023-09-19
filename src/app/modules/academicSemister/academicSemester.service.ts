@@ -41,13 +41,13 @@ const getAllSemester = async (
   filters: IAcademicSemesterFilterRequest,
   options: IPaginationOptions
 ): Promise<IGenericResponse<AcademicSemester[]>> => {
-  console.log(filters, options);
+  // console.log(filters, options);
 
   // paginations
   const { page, limit, skip } = paginationHelpers.calculatePagination(options);
   // search data
   const { searchTerm, ...filterData } = filters;
-  console.log(filterData);
+  // console.log(filterData);
 
   const andCondations = [];
 
@@ -92,7 +92,7 @@ const getAllSemester = async (
   });
 
   const total = await prisma.academicSemester.count();
-  console.log(result);
+  // console.log(result);
 
   return {
     meta: {
