@@ -1,6 +1,6 @@
 const groupAcademicSemester = (data: any) => {
   console.log(data);
-  const groupData = data.reduce((result: any, course: any) => {
+  data.reduce((result: any, course: any) => {
     const academicSemester = course.academicSemester;
 
     const existingGroup = result.find(

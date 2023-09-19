@@ -275,8 +275,7 @@ const myAcademicInfo = async (authuserId: string): Promise<any> => {
   // console.log(myAcademicInfo);
   // console.log(enroleCourse);
 
-  const groupAcademicSemesterData =
-    studentUtils.groupAcademicSemester(enroleCourse);
+  studentUtils.groupAcademicSemester(enroleCourse);
 
   return {
     academicInfo,
