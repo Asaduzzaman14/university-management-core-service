@@ -9,6 +9,7 @@ import { IPaginationOptions } from './../../../interfaces/pagination';
 import {
   AcademicSemesterSearchableField,
   EVENT_ACADEMIC_SEMESTER_CREATED,
+  EVENT_ACADEMIC_SEMESTER_DELETED,
   EVENT_ACADEMIC_SEMESTER_UPDATED,
   academicSemesterTitleCodeMapper,
 } from './academicSemester.constance';
@@ -142,9 +143,12 @@ const deleteByIdFromDB = async (id: string): Promise<AcademicSemester> => {
     },
   });
 
-  // if (result) {
-  //     await RedisClient.publish(EVENT_ACADEMIC_SEMESTER_DELETED, JSON.stringify(result));
-  // }
+  if (result) {
+    await RedisClient.publish(
+      EVENT_ACADEMIC_SEMESTER_DELETED,
+      JSON.stringify(result)
+    );
+  }
   return result;
 };
 

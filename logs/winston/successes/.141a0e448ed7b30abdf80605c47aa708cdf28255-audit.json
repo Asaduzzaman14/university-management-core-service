@@ -6,41 +6,6 @@
     "auditLog": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\.141a0e448ed7b30abdf80605c47aa708cdf28255-audit.json",
     "files": [
         {
-            "date": 1693937929274,
-            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-06-09-00-success.log",
-            "hash": "1daed09bdf858142d4c9b108249fcba4cbeec859d264c0371fa13ea3a956c796"
-        },
-        {
-            "date": 1693995239284,
-            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-06-09-16-success.log",
-            "hash": "8238a5353c52a36f7f8b11ad9584adbeb59a6ab87e609fde6c24bbc29feb85af"
-        },
-        {
-            "date": 1694110367278,
-            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-08-09-00-success.log",
-            "hash": "a654caa72b61d1c1775a3c8b306667be6fb2c14793153d9cde85d35fcc0c729c"
-        },
-        {
-            "date": 1694113206278,
-            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-08-09-01-success.log",
-            "hash": "9b9659e92f26d6bfd6373f050281db4fe89ede30a3e8a8c5efd2b48c0a76cb29"
-        },
-        {
-            "date": 1694116814651,
-            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-08-09-02-success.log",
-            "hash": "0b74d5965779d3e97de9113accf976813b8087629a0277e9b67655faecd1a920"
-        },
-        {
-            "date": 1694146821695,
-            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-08-09-10-success.log",
-            "hash": "a0fcca4c93739b12dc448e88490b723ef5daad5a2a11b54eba4e8f59e3fd5239"
-        },
-        {
-            "date": 1694155088735,
-            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-08-09-12-success.log",
-            "hash": "d1d73b012560a85499bbb1cb7faad8f17dc764a34373b43f8d215a67530c6f07"
-        },
-        {
             "date": 1694186949378,
             "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-08-09-21-success.log",
             "hash": "d8591c8e995dd997a9e984a50b78299271244db2ff226e1654c1230bc0d998aa"
@@ -249,6 +214,31 @@
             "date": 1695146440972,
             "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-20-09-00-success.log",
             "hash": "014a627dffd2c6715b682affafbac7dcc4f265ce98c1cc515fd37b74085158cd"
+        },
+        {
+            "date": 1695228266112,
+            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-20-09-22-success.log",
+            "hash": "1a5a7abeb889c0d8e7c063766d733562369c0bc760f3634c0442c8acea8b22e1"
+        },
+        {
+            "date": 1695286506082,
+            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-21-09-14-success.log",
+            "hash": "e610b5d1f9a174dc6e59e93452da70d7de2b101c680c70248b3f3e0ddb007d31"
+        },
+        {
+            "date": 1695287335840,
+            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-21-09-15-success.log",
+            "hash": "1941adaaf15a1451d399f0386a9617e828747ca228c04045d6150cce8c44651c"
+        },
+        {
+            "date": 1695291346529,
+            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-21-09-16-success.log",
+            "hash": "1b23a147d4c69545d9cdbef4d53f03fa93e2d3dabcddc8d243cdcc80b2d082de"
+        },
+        {
+            "date": 1695393834449,
+            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\successes\\phu-2023-22-09-20-success.log",
+            "hash": "636c4517f090babcf4bb154403a5d2f224016d10721f135388e0efb08a6b4073"
         }
     ],
     "hashType": "sha256"

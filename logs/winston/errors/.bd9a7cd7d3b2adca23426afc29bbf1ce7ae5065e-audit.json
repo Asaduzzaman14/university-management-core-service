@@ -6,41 +6,6 @@
     "auditLog": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\errors\\.bd9a7cd7d3b2adca23426afc29bbf1ce7ae5065e-audit.json",
     "files": [
         {
-            "date": 1693937929378,
-            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\errors\\phu-2023-06-09-00-error.log",
-            "hash": "6063228251b1df6fc203413f94c3d8a8a90ca041b757689cad8da6e3876bd4dd"
-        },
-        {
-            "date": 1693995239477,
-            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\errors\\phu-2023-06-09-16-error.log",
-            "hash": "0ddb3a3e3fdc4768b99ea2d16c960d86a4092c3fcc1af37086302fd0829f03be"
-        },
-        {
-            "date": 1694110367395,
-            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\errors\\phu-2023-08-09-00-error.log",
-            "hash": "0034f6c02c8825d62cea9dd12359a5e2a1d909cef33a184286ff8984189a8d54"
-        },
-        {
-            "date": 1694113206348,
-            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\errors\\phu-2023-08-09-01-error.log",
-            "hash": "e693471fff16690e2096353b58b18f6bb3b83925cf81286e49017c87fb090c2b"
-        },
-        {
-            "date": 1694116814678,
-            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\errors\\phu-2023-08-09-02-error.log",
-            "hash": "e96956727b611a0bae68423373b45df3efe285a2c0fdc906c8552df09148be25"
-        },
-        {
-            "date": 1694146821784,
-            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\errors\\phu-2023-08-09-10-error.log",
-            "hash": "605bad0625e99cc52c4801d22ea7b40727eb2583d1d4b8a3403b742b6313d742"
-        },
-        {
-            "date": 1694155088765,
-            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\errors\\phu-2023-08-09-12-error.log",
-            "hash": "d91e71294c8fa55b1eccb9d69ce54d4e84cd0743a46ae21e22e89a7be73d5884"
-        },
-        {
             "date": 1694186949495,
             "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\errors\\phu-2023-08-09-21-error.log",
             "hash": "91fd8d7f39d430a35854ac668bc0a6eee96d3d488e002363bb20d9c9a3bf1276"
@@ -249,6 +214,31 @@
             "date": 1695146440997,
             "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\errors\\phu-2023-20-09-00-error.log",
             "hash": "927a9bf660108c86ad4656be14d556e7976e4e9dda26909a6a6b1153ac896c22"
+        },
+        {
+            "date": 1695228266213,
+            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\errors\\phu-2023-20-09-22-error.log",
+            "hash": "f15a6184491fc848b3569eca2fad66a70197ef707181fbc834f918eef24cc51f"
+        },
+        {
+            "date": 1695286506339,
+            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\errors\\phu-2023-21-09-14-error.log",
+            "hash": "806c65cd59087530c6930f8020185d53e84956b51325ce77f03277fc73dc6638"
+        },
+        {
+            "date": 1695287335844,
+            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\errors\\phu-2023-21-09-15-error.log",
+            "hash": "07118866f714db190a0ae54aa9f21743b405dfe08e13a6fd5c19254c0c1bf4e5"
+        },
+        {
+            "date": 1695291346538,
+            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\errors\\phu-2023-21-09-16-error.log",
+            "hash": "6a6e7b11f7d2f4af73f5e58bc06d1627ef2c35b2a8d033d26444fa69750cf2e8"
+        },
+        {
+            "date": 1695393834477,
+            "name": "D:\\Aapollo\\university-management-core-service-starter\\logs\\winston\\errors\\phu-2023-22-09-20-error.log",
+            "hash": "a76bdaf6d0e500e3ce7284745482b5722c68cace42d824cc0fd7d3b61a885a2c"
         }
     ],
     "hashType": "sha256"

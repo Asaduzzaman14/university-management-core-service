@@ -20,14 +20,14 @@ router.get('/:id', AcademicSemesterController.getSemestersById);
 
 router.patch(
   '/:id',
-  // validateRequest(AcademicSemesterValidation.update),
-  // auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  validateRequest(AcademicSemesterValidation.update),
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   AcademicSemesterController.updateOneInDB
 );
 
 router.delete(
   '/:id',
-  // auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   AcademicSemesterController.deleteByIdFromDB
 );
 
