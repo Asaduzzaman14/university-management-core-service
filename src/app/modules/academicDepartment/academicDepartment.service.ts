@@ -7,6 +7,8 @@ import { RedisClient } from '../../../shared/redis';
 import {
   AcademicDepartmentSearchAbleFields,
   EVENT_ACADEMIC_DEPARTMENT_CREATED,
+  EVENT_ACADEMIC_DEPARTMENT_DELETED,
+  EVENT_ACADEMIC_DEPARTMENT_UPDATED,
 } from './academicDepartment.constance';
 import { IAcademicDepartmentFilterRequest } from './academicDepartment.interface';
 
@@ -120,6 +122,13 @@ const updateOneInDB = async (
       academicFaculty: true,
     },
   });
+  if (result) {
+    await RedisClient.publish(
+      EVENT_ACADEMIC_DEPARTMENT_UPDATED,
+      JSON.stringify(result)
+    );
+  }
+
   return result;
 };
 
@@ -132,6 +141,14 @@ const deleteByIdFromDB = async (id: string): Promise<AcademicDepartment> => {
       academicFaculty: true,
     },
   });
+
+  if (result) {
+    await RedisClient.publish(
+      EVENT_ACADEMIC_DEPARTMENT_DELETED,
+      JSON.stringify(result)
+    );
+  }
+
   return result;
 };
 
