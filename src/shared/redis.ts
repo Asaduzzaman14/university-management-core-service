@@ -14,7 +14,7 @@ const redisSubClient = createClient({
 });
 
 redisClient.on('error', err => console.log('RedisError:', err));
-redisClient.on('connect', err => console.log('Redis Connected:'));
+redisClient.on('connect', () => console.log('Redis Connected:'));
 
 const connect = async (): Promise<void> => {
   await redisClient.connect();
@@ -71,5 +71,5 @@ export const RedisClient = {
   getAccessToken,
   delAccessToken,
   publish: redisClient.publish.bind(redisPubClient),
-  subscrive: redisClient.publish.bind(redisSubClient),
+  subscribe: redisClient.subscribe.bind(redisSubClient),
 };

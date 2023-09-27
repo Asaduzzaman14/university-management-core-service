@@ -50,19 +50,19 @@ const moduleRoutes = [
     route: CourseRoutes,
   },
   {
-    path: '/semester-registration',
+    path: '/semester-registrations',
     route: SemesterRegiRoutes,
   },
   {
-    path: '/offered-course',
+    path: '/offered-courses',
     route: OfferedCourseRoutes,
   },
   {
-    path: '/offered-course-section',
+    path: '/offered-course-sections',
     route: OfferedCourseSectionRoutes,
   },
   {
-    path: '/offered-course-class-schedule',
+    path: '/offered-course-class-schedules',
     route: OfferedCourseClassScheduleRoutes,
   },
   {

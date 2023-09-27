@@ -14,7 +14,7 @@ router.get(
 );
 
 router.get(
-  '/get-my-registration-courses',
+  '/get-my-semsester-courses',
   auth(ENUM_USER_ROLE.STUDENT),
   SemesterRegistrationController.getMySemesterRegistrationCourses
 );
@@ -39,34 +39,34 @@ router.delete('/:id', SemesterRegistrationController.deleteByIdFromDB);
 
 // student_semester_registrations
 router.post(
-  '/start-my-registration',
+  '/start-registration',
   auth(ENUM_USER_ROLE.STUDENT),
   SemesterRegistrationController.startMyRegistration
 );
 
 router.post(
-  '/enrole-into-course',
+  '/enroll-into-course',
   validateRequest(SemesterRegistrationValidation.enroleOrWithDrowCourse),
   auth(ENUM_USER_ROLE.STUDENT),
   SemesterRegistrationController.inroleInToCourse
 );
 
 router.post(
-  '/withdrow-from-course',
+  '/withdraw-from-course',
   validateRequest(SemesterRegistrationValidation.enroleOrWithDrowCourse),
   auth(ENUM_USER_ROLE.STUDENT),
   SemesterRegistrationController.withDrowFromCourse
 );
 
 router.post(
-  '/confirm-registration',
+  '/confirm-my-registration',
   auth(ENUM_USER_ROLE.STUDENT),
   SemesterRegistrationController.confirmRegistration
 );
 
 router.post(
   '/:id/start-new-semester',
-  // auth(ENUM_USER_ROLE.ADMIN),
+  auth(ENUM_USER_ROLE.ADMIN),
   SemesterRegistrationController.startNewSemester
 );
 

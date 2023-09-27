@@ -283,6 +283,19 @@ const myAcademicInfo = async (authuserId: string): Promise<any> => {
   };
 };
 
+const createStudentFomEvent = async e => {
+  const studentData: Partial<Student> = {
+    studentId: e.id,
+    firstName: e.fastName,
+    lastName: e.lastName,
+    middleName: e.middleName,
+    email: e.email,
+    contactNo: e.contactNo,
+    gender: e.gender,
+    bloodGroup: e.bloodGroup,
+  };
+};
+
 export const StudentService = {
   insertIntoDB,
   getAllFromDB,

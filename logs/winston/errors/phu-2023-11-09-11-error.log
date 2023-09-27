@@ -1,5 +1,0 @@
-Mon Sep 11 2023 11:3:52 } [UM] error: 
-Invalid `prisma.studentSemesterPayment.findFirst()` invocation:
-
-
-Transaction API error: Transaction already closed: Could not perform operation.
