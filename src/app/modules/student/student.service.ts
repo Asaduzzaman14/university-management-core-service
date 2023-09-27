@@ -12,8 +12,6 @@ import { IStudentFilterRequest } from './student.interface';
 import { studentUtils } from './student.utils';
 
 const insertIntoDB = async (data: Student): Promise<Student> => {
-  console.log(data);
-
   const result = await prisma.student.create({
     data: data,
     include: {
@@ -22,6 +20,8 @@ const insertIntoDB = async (data: Student): Promise<Student> => {
       academicfaculty: true,
     },
   });
+  console.log(result);
+
   return result;
 };
 
@@ -283,17 +283,23 @@ const myAcademicInfo = async (authuserId: string): Promise<any> => {
   };
 };
 
-const createStudentFomEvent = async e => {
+const createStudentFromEvent = async (e: any) => {
   const studentData: Partial<Student> = {
     studentId: e.id,
-    firstName: e.fastName,
-    lastName: e.lastName,
-    middleName: e.middleName,
+    firstName: e.name.fastName,
+    lastName: e.name.lastName,
+    middleName: e.name.middleName,
     email: e.email,
     contactNo: e.contactNo,
     gender: e.gender,
     bloodGroup: e.bloodGroup,
+    academicSemesterId: e.academicSemester.syncId,
+    academicDepartmentId: e.academicDepartment.syncId,
+    academicFacultyId: e.academicFaculty.syncId,
   };
+  console.log(studentData);
+
+  await insertIntoDB(studentData as Student);
 };
 
 export const StudentService = {
@@ -306,4 +312,6 @@ export const StudentService = {
 
   getMyCourseSchedule,
   myAcademicInfo,
+
+  createStudentFromEvent,
 };
