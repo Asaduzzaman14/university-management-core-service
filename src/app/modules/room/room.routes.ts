@@ -5,11 +5,11 @@ import { RoomsController } from './room.controller';
 const router = express();
 
 router.get('/:id', RoomsController.getRoomsgById);
-// router.get('/', RoomsController.getAllBuildin);
+router.get('/', RoomsController.getAllFromDB);
 
 router.post(
   '/',
-  // auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
+  auth(ENUM_USER_ROLE.ADMIN, ENUM_USER_ROLE.SUPER_ADMIN),
   RoomsController.createRooms
 );
 

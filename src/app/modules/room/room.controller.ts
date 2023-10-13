@@ -3,6 +3,8 @@ import httpStatus from 'http-status';
 import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
 import { RoomServices } from './room.service';
+import pick from '../../../shared/pick';
+import { roomFilterableFields } from './room.constants';
 
 const createRooms = catchAsync(async (req: Request, res: Response) => {
   const result = await RoomServices.createRooms(req.body);
@@ -15,20 +17,18 @@ const createRooms = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-// const getAllRooms = catchAsync(async (req: Request, res: Response) => {
-//   const filters = pick(req.query, buildingFilterableFieldes);
-//   const options = pick(req.query, ['limit', 'page', 'sortOrder', 'sortBy']);
-
-//   const result = await BuildingService.getAllBuilding(filters, options);
-
-//   sendResponse(res, {
-//     statusCode: httpStatus.OK,
-//     success: true,
-//     message: 'Building Get successfully',
-//     meta: result.meta,
-//     data: result.data,
-//   });
-// });
+const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
+  const filters = pick(req.query, roomFilterableFields);
+  const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
+  const result = await RoomServices.getAllFromDB(filters, options);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Rooms fetched successfully',
+    meta: result.meta,
+    data: result.data,
+  });
+});
 
 const getRoomsgById = catchAsync(async (req: Request, res: Response) => {
   const result = await RoomServices.getRoomById(req.params.id);
@@ -65,6 +65,7 @@ const deleteRoomByIdFromDB = catchAsync(async (req: Request, res: Response) => {
 
 export const RoomsController = {
   createRooms,
+  getAllFromDB,
   getRoomsgById,
   updateOneInDB,
   deleteRoomByIdFromDB,

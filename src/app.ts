@@ -8,7 +8,15 @@ import cookieParser from 'cookie-parser';
 
 const app: Application = express();
 
-app.use(cors());
+// app.use(cors());
+
+app.use(
+  cors({
+    origin: ['http://localhost:3000', 'dashboard-client-sigma.vercel.app'],
+    credentials: true,
+  })
+);
+
 app.use(cookieParser());
 
 //parser
@@ -16,7 +24,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/v1', routes);
-
 
 //global error handler
 app.use(globalErrorHandler);
