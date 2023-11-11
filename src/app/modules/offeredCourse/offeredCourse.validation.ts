@@ -3,22 +3,31 @@ import { z } from 'zod';
 const create = z.object({
   body: z.object({
     academicDepartmentId: z.string({
-      required_error: 'academicDepartmentId is required',
+      required_error: 'Academic Department Id is required',
     }),
     semesterRegistrationId: z.string({
-      required_error: 'semesterRegistrationId is required',
+      required_error: 'Semester Reg. is required',
     }),
-    coursesIds: z.array(
+    courseIds: z.array(
       z.string({
-        required_error: 'course Id is required',
+        required_error: 'Course Id is required',
       }),
       {
-        required_error: 'course Ids are required',
+        required_error: 'Course Ids are required',
       }
     ),
   }),
 });
 
-export const Validations = {
+const update = z.object({
+  body: z.object({
+    semesterRegistrationId: z.string().optional(),
+    courseId: z.string().optional(),
+    academicDepartmentId: z.string().optional(),
+  }),
+});
+
+export const OfferedCourseValidations = {
   create,
+  update,
 };
